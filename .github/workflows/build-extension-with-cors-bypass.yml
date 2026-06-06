@@ -1,0 +1,35 @@
+name: Build and Release Elasticvue extension with CORS bypass
+
+on:
+  push:
+    tags:
+      - 'v*' # Triggers workflow only when pushing a tag starting with 'v' (e.g., v1.0.0)
+
+# Needed to grant GitHub Actions permission to create releases and upload assets
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - uses: martinbeentjes/npm-get-version-action@v1.3.1
+        id: package-version
+
+      - name: build extensions
+        run: make build_browser_extensions
+
+      - uses: ncipollo/release-action@v1
+        tag: ${{ github.ref_name }}
+        name: ${{ github.ref_name }}
+        with:
+          artifacts: |
+            artifacts/*.zip
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

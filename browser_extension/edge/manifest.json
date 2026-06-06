@@ -1,5 +1,5 @@
 {
-  "name": "Elasticvue",
+  "name": "Elasticvue with CORS bypass",
   "version": "1.15.0",
   "description": "Elasticsearch frontend",
   "manifest_version": 3,
@@ -9,6 +9,9 @@
     "48": "./logo/blue_48.png",
     "128": "./logo/blue_128.png"
   },
+  "permissions": [
+    "declarativeNetRequest"
+  ],
   "background": {
     "service_worker": "background.js"
   },
