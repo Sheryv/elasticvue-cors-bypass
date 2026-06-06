@@ -24,7 +24,6 @@ jobs:
         run: make build_browser_extensions
 
       - uses: ncipollo/release-action@v1
-        tag: ${{ github.ref_name }}
         name: ${{ github.ref_name }}
         with:
           artifacts: |
